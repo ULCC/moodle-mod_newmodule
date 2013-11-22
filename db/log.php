@@ -20,9 +20,9 @@
  *
  * NOTE: this is an example how to insert log event during installation/update.
  * It is not really essential to know about it, but these logs were created as example
- * in the previous 1.9 NEWMODULE.
+ * in the previous 1.9 unittest.
  *
- * @package    mod_newmodule
+ * @package    mod_unittest
  * @copyright  2011 Your Name <your@email.adress>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -32,8 +32,8 @@ defined('MOODLE_INTERNAL') || die();
 global $DB;
 
 $logs = array(
-    array('module'=>'newmodule', 'action'=>'add', 'mtable'=>'newmodule', 'field'=>'name'),
-    array('module'=>'newmodule', 'action'=>'update', 'mtable'=>'newmodule', 'field'=>'name'),
-    array('module'=>'newmodule', 'action'=>'view', 'mtable'=>'newmodule', 'field'=>'name'),
-    array('module'=>'newmodule', 'action'=>'view all', 'mtable'=>'newmodule', 'field'=>'name')
+    array('module'=>'unittest', 'action'=>'add', 'mtable'=>'unittest', 'field'=>'name'),
+    array('module'=>'unittest', 'action'=>'update', 'mtable'=>'unittest', 'field'=>'name'),
+    array('module'=>'unittest', 'action'=>'view', 'mtable'=>'unittest', 'field'=>'name'),
+    array('module'=>'unittest', 'action'=>'view all', 'mtable'=>'unittest', 'field'=>'name')
 );
