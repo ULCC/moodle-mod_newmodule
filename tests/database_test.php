@@ -31,8 +31,8 @@ class database_test extends advanced_testcase {
     }
 
     /**
-     * The function mut start with test_ or else it will be ignored. This allows you to have other methods
-     * which are not run by PHPUnit, which you can use as helpers.
+     * Deliberate failure. If you are doing something where it is important that it has no side effects, then
+     * leave out reset_after_test() to get notified.
      */
     public function test_db_is_not_messed_with() {
         global $DB;
@@ -45,5 +45,44 @@ class database_test extends advanced_testcase {
         $DB->insert_record('user', $user);
 
         $this->assertNotEmpty($DB->get_record('user', array('email' => 'new@user.com')));
+    }
+
+    /**
+     * The built in data generator has a few utility methods that save a lot of time.
+     */
+    public function test_core_data_generator() {
+        global $DB;
+
+        $this->resetAfterTest(true);
+
+        $generator = $this->getDataGenerator();
+
+        $user = $generator->create_user();
+
+        // Admin, guest, and the new one.
+        $this->assertEquals(3, $DB->count_records('user'));
+
+    }
+
+    /**
+     * Each plugin can define its own generator, which make code easy to reuse.
+     * Make/find these in plugin/tests/generator/lib.php
+     */
+    public function test_plugin_data_generator() {
+        global $DB;
+
+        $this->resetAfterTest(true);
+
+        $generator = $this->getDataGenerator();
+        $assign_generator = $generator->get_plugin_generator('mod_assign');
+
+        $course = $generator->create_course();
+
+        // Needs a course as a minimum. All other details are auto-generated.
+        $assign = new stdClass();
+        $assign->course = $course;
+        $assign = $assign_generator->create_instance($assign);
+
+        $this->assertEquals(1, $DB->count_records('assign'));
     }
 }
