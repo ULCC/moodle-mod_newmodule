@@ -74,14 +74,17 @@ class database_test extends advanced_testcase {
         $this->resetAfterTest(true);
 
         $generator = $this->getDataGenerator();
+        /**
+         * @var mod_assign_generator $assign_generator
+         */
         $assign_generator = $generator->get_plugin_generator('mod_assign');
 
         $course = $generator->create_course();
 
         // Needs a course as a minimum. All other details are auto-generated.
         $assign = new stdClass();
-        $assign->course = $course;
-        $assign = $assign_generator->create_instance($assign);
+        $assign->course = $course->id;
+        $full_assign = $assign_generator->create_instance($assign);
 
         $this->assertEquals(1, $DB->count_records('assign'));
     }
