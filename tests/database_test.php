@@ -31,13 +31,13 @@ class database_test extends advanced_testcase {
     }
 
     /**
-     * Deliberate failure. If you are doing something where it is important that it has no side effects, then
+     * Use to test failure by commenting resetAfterTest(). If you are doing something where it is important that it has no side effects, then
      * leave out reset_after_test() to get notified.
      */
     public function test_db_is_not_messed_with() {
         global $DB;
 
-        // $this->resetAfterTest(true); // without this, any changes to the DB will cause a failure
+        $this->resetAfterTest(true); // without this, any changes to the DB will cause a failure
 
         $user = new stdClass();
         $user->email = 'new@user.com';
